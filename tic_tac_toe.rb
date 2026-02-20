@@ -22,5 +22,15 @@ player = Player.new(player_name, player_mark)
 cpu_mark = player_mark == "x" ? "o" : "x"
 cpu = Player.new("CPU", cpu_mark)
 
-p player
-p cpu
+grid = Array.new(3, Array.new(3, " "))
+
+grid.each_with_index do |row, row_index|
+  row.each_with_index do |column, column_index|
+    print column
+    print "|" unless column_index == row.length - 1
+  end
+
+  puts "\n-----" unless row_index == grid.length - 1
+end
+
+puts "Choose a column"
