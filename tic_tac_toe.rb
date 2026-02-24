@@ -2,6 +2,11 @@
 require "pry-byebug"
 require_relative "lib/player"
 
+# Valid space method
+def empty_space?(arr, row, column)
+  arr[row][column] == " "
+end
+
 puts "Enter your name: "
 player_name = gets.chomp
 
@@ -28,11 +33,19 @@ while grid.flatten.include?(" ")
     puts "\n-----" unless row_index == grid.length - 1
   end
 
-  puts "\n\nChoose row 1, 2, or 3"
+  puts "\n\nChoose row 1, 2, or 3."
   player_row = gets.chomp.to_i - 1
-
-  puts "Choose column 1, 2, or 3"
+  puts "Choose column 1, 2, or 3."
   player_column = gets.chomp.to_i - 1
+
+  until empty_space?(grid, player_row, player_column)
+    puts "The space you chose is taken."
+    puts "Please choose an empty space."
+    puts "Choose row 1, 2, or 3."
+    player_row = gets.chomp.to_i - 1
+    puts "Choose column 1, 2, or 3."
+    player_column = gets.chomp.to_i - 1
+  end
 
   grid[player_row][player_column] = player.mark
 
