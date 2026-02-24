@@ -1,19 +1,11 @@
-# TODO: Add player choice as an instance variable
-# TODO: Add method to ask player for row choice
-# TODO: Add method to ask player for column choice
-# TODO: Hard code grid with any choices made and print it out when asking player for next choice
-# TODO: Create an array of 3 arrays representing the 3 rows of choices
-#       Each nested array will initially have 3 empty strings
-# TODO: Choices will be saved to the nested arrays
-# TODO: Use nested #each method to iterate through choices and print them out
-#       After each choice is printed, print a "|", unless it's the last choice
-#       After the outer #each method is done, print a new line with 5 dashes, unless it's the last array
-
+# TODO: Remove pry-byebug after project is complete
+require "pry-byebug"
 require_relative "lib/player"
 
 puts "Enter your name: "
 player_name = gets.chomp
 
+# TODO: Add input validation (e.g. while loop)
 puts "Choose x or o"
 player_mark = gets.chomp
 
@@ -22,15 +14,27 @@ player = Player.new(player_name, player_mark)
 cpu_mark = player_mark == "x" ? "o" : "x"
 cpu = Player.new("CPU", cpu_mark)
 
-grid = Array.new(3, Array.new(3, " "))
+grid = Array.new(3) { Array.new(3, " ") }
 
-grid.each_with_index do |row, row_index|
-  row.each_with_index do |column, column_index|
-    print column
-    print "|" unless column_index == row.length - 1
+while grid.flatten.include?(" ")
+  puts ""
+
+  grid.each_with_index do |row, row_index|
+    row.each_with_index do |column, column_index|
+      print column
+      print "|" unless column_index == row.length - 1
+    end
+
+    puts "\n-----" unless row_index == grid.length - 1
   end
 
-  puts "\n-----" unless row_index == grid.length - 1
-end
+  puts "\n\nChoose row 1, 2, or 3"
+  player_row = gets.chomp.to_i - 1
 
-puts "Choose a column"
+  puts "Choose column 1, 2, or 3"
+  player_column = gets.chomp.to_i - 1
+
+  grid[player_row][player_column] = player.mark
+
+  # TODO: Add cpu turn
+end
