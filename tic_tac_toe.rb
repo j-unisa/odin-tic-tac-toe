@@ -7,6 +7,8 @@ def empty_space?(arr, row, column)
   arr[row][column] == " "
 end
 
+# TODO: Add #winner? method
+
 puts "Enter your name: "
 player_name = gets.chomp
 
@@ -49,5 +51,26 @@ while grid.flatten.include?(" ")
 
   grid[player_row][player_column] = player.mark
 
-  # TODO: Add cpu turn
+  next unless grid.flatten.include?(" ")
+
+  cpu_row = rand(0..2)
+  cpu_column = rand(0..2)
+
+  until empty_space?(grid, cpu_row, cpu_column)
+    cpu_row = rand(0..2)
+    cpu_column = rand(0..2)
+  end
+
+  grid[cpu_row][cpu_column] = cpu_mark
 end
+
+grid.each_with_index do |row, row_index|
+  row.each_with_index do |column, column_index|
+    print column
+    print "|" unless column_index == row.length - 1
+  end
+
+  puts "\n-----" unless row_index == grid.length - 1
+end
+
+puts ""
