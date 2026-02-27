@@ -1,6 +1,6 @@
 # Represents a participant in the game, storing their identity and game symbol.
 class Player
-  attr_reader :mark
+  attr_reader :mark, :name
 
   # @param name [String] the player's name
   # @param mark [String] the player's symbol (x or o)
